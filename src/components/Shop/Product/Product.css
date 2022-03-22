@@ -1,12 +1,15 @@
 .product {
   width: 300px;
+  height: 510px;
   border: 1px solid lightgrey;
   border-radius: 8px;
+  position: relative;
 }
 .product img {
   height: 286px;
   width: 286px;
   margin: 7px;
+  margin-bottom: 0;
   border-radius: 8px;
 }
 .product-info {
@@ -17,12 +20,35 @@
   font-style: normal;
   font-weight: 400;
   font-size: 21px;
-  line-height: 25px;
 }
 .product-price {
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
-  line-height: 20px;
+}
+.product-btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #ffe0b3;
+  border: 1px solid #95a0a7;
+  box-sizing: border-box;
+  border-radius: 0px 0px 8px 8px;
+  padding: 12px 0;
+  border: 0;
+  color: #0e161a;
+}
+.product-btn span {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+}
+.product-btn:hover {
+  background-color: orange;
+}
+.product-info p {
+  margin-top: 11px;
+  margin-bottom: 0;
 }
