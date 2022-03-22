@@ -2,9 +2,10 @@ import React from 'react';
 import './Product.css'
 
 const Product = (props) => {
+    const {name, price, ratings,img}= props.product
     return (
-        <div className='product' style={{border: '1px solid blue'}}>
-            <h2>jhg</h2>
+        <div className='product' >
+            <img src={img} alt="products" />
         </div>
     );
 };
