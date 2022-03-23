@@ -17,12 +17,18 @@ const Shop = () => {
     // saved product cart 
     useEffect(()=>{
         const storedCart = getLocalStorageCart();
+        console.log(storedCart);
+        const savedCart = [];
         for(const id in storedCart){
         const findProduct = products.find(product => product.id === id)
-        if(storedCart){
-           setCart(findProduct);
+            if(findProduct){
+                const newQuantity = storedCart[id];
+                findProduct.quantity = newQuantity;
+                savedCart.push(findProduct);
+            console.log(findProduct);
+            }
         }
-        }
+        setCart(savedCart);
     },[products])
     // add to cart btn handler function 
     const handleAddtoCartBtn=(product)=>{
