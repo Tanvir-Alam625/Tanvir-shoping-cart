@@ -17,7 +17,6 @@ const Shop = () => {
     // saved product cart 
     useEffect(()=>{
         const storedCart = getLocalStorageCart();
-        console.log(storedCart);
         const savedCart = [];
         for(const id in storedCart){
         const findProduct = products.find(product => product.id === id)
@@ -25,16 +24,24 @@ const Shop = () => {
                 const newQuantity = storedCart[id];
                 findProduct.quantity = newQuantity;
                 savedCart.push(findProduct);
-            console.log(findProduct);
             }
         }
         setCart(savedCart);
     },[products])
     // add to cart btn handler function 
-    const handleAddtoCartBtn=(product)=>{
-        const newCart = [...cart,product]
+    const handleAddtoCartBtn=(selectProduct)=>{
+        const allReadyExists = cart.find(product=> product.id === selectProduct.id)
+        let newCart =[];
+        if(!allReadyExists){
+            selectProduct.quantity = 1;
+            newCart = [...cart,selectProduct]
+        }else{
+            const rest = cart.filter(product => product.id !== selectProduct.id);
+            allReadyExists.quantity = allReadyExists.quantity+1;
+            newCart= [...rest, allReadyExists];
+        }
         setCart(newCart)
-        addToDb(product.id);
+        addToDb(selectProduct.id);
     }
      return (
         <div className='shop-container'>

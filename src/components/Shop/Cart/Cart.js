@@ -3,10 +3,12 @@ import './Cart.css';
 const Cart = ({cart}) => {
     let total = 0;
     let shippingCharge = 0;
+    let newQuantity = 0;
     for(const product of cart){
-        const {price, shipping,}=product
-        total = total + price;
-        shippingCharge = shippingCharge + shipping;
+        const {price, shipping, quantity}=product
+        newQuantity = newQuantity + quantity;
+        total = (total + price) * quantity;
+        shippingCharge = (shippingCharge + shipping) * quantity;
     }
     const tax = parseFloat((total * 10 /100).toFixed(2));
     const grandTotal = total + shippingCharge + tax;
@@ -20,7 +22,7 @@ const Cart = ({cart}) => {
     return (
         <div className='cart-container'>
             <h3 className='cart-title'>Order Summary</h3>
-            <p style={font}>Selected items: {cart.length}</p> 
+            <p style={font}>Selected items: {newQuantity}</p> 
             <p style={font}>Total Pice: $ {total}</p> 
             <p style={font}>Total Shipping Charge: $ {shippingCharge}</p> 
             <p style={font}>Tax: $ {tax}</p>
