@@ -1,13 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header/Header';
-import Shop from './components/Shop/Shop';
+import "./App.css";
+import Header from "./components/Header/Header";
+import Shop from "./components/Shop/Shop";
 
 function App() {
   return (
-    <div>
-      <Header/>
-      <Shop/>
+    <div className="overflow-x-hidden">
+      <Header />
+      <Shop />
     </div>
   );
 }
