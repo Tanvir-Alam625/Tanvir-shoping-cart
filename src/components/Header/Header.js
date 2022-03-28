@@ -1,20 +1,25 @@
-import React from 'react';
-import Logo from '../../images/Logo.svg';
-import './Header.css';
+import React, { useState } from "react";
+import Logo from "../../images/Logo.svg";
+import Link from "../Link/Link";
 const Header = () => {
-    return (
-        <div className='header-container'>
-        <nav className='header'>
-            <img src={Logo} alt="nav-logo" />
-            <div className='nav-items'>
-                <a href="/shop">Shop</a>
-                <a href="/order">Order</a>
-                <a href="/order-overview">Order Overview</a>
-                <a href="/inventory">Manage Inventory</a>
-            </div>
-        </nav>
+  const [links, setLinks] = useState([]);
+  useState(() => {
+    fetch("link.json")
+      .then((response) => response.json())
+      .then((data) => setLinks(data));
+  }, []);
+  return (
+    <div className="relative">
+      <nav className=" h-[80px] bg-[#1c2b35] flex justify-between py-0 px-[140px] items-center">
+        <img src={Logo} alt="nav-logo" />
+        <div className="">
+          {links.map((link) => (
+            <Link data={link} key={link.id} />
+          ))}
         </div>
-    );
+      </nav>
+    </div>
+  );
 };
 
 export default Header;

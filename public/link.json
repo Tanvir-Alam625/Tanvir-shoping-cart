@@ -1,0 +1,6 @@
+ [
+    { "id": 1, "link": "/shop", "name": "Shop" },
+    { "id": 2, "link": "/order", "name": "Order" },
+    { "id": 3, "link": "/overview", "name": "Overview" },
+    { "id": 4, "link": "/inventory", "name": "Inventory" }
+  ]
