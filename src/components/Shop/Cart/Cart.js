@@ -12,21 +12,19 @@ const Cart = ({ cart }) => {
   }
   const tax = parseFloat(((total * 10) / 100).toFixed(2));
   const grandTotal = total + shippingCharge + tax;
-  const font = {
-    fontSize: "17px",
-    fontWeight: "400",
-    lineHeight: "20px",
-    letterSpacing: "0.005em",
-    fontFamily: "Lato",
-  };
+  const detailsStyle = "text-xl my-2 tracking-tight font-[Lato]";
   return (
     <div className="cart-container md:w-full">
-      <h3 className="cart-title">Order Summary</h3>
-      <p style={font}>Selected items: {newQuantity}</p>
-      <p style={font}>Total Pice: $ {total}</p>
-      <p style={font}>Total Shipping Charge: $ {shippingCharge}</p>
-      <p style={font}>Tax: $ {tax}</p>
-      <h3 className="grand-total">Grand Total: $ {grandTotal.toFixed(2)}</h3>
+      <h3 className=" text-2xl text-center mb-4 font-semibold font-[Lato]">
+        Order Summary
+      </h3>
+      <p className={detailsStyle}>Selected items: {newQuantity}</p>
+      <p className={detailsStyle}>Total Pice: $ {total}</p>
+      <p className={detailsStyle}>Shipping Charge: $ {shippingCharge}</p>
+      <p className={detailsStyle}>Tax: $ {tax}</p>
+      <h3 className="text-xl font-semibold font-[Lato] tracking-tight">
+        Grand Total: $ {grandTotal.toFixed(2)}
+      </h3>
     </div>
   );
 };

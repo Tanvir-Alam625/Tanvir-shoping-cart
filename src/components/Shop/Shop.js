@@ -55,7 +55,7 @@ const Shop = () => {
           />
         ))}
       </div>
-      <div className="product-cart">
+      <div className="product-cart sticky md:m-2 m-0">
         <Cart cart={cart} />
       </div>
     </div>
