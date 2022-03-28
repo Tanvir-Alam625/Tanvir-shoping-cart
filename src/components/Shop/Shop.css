@@ -3,13 +3,13 @@
   grid-template-columns: 4fr 1fr;
   gap: 20px;
 }
-.products-items {
+/* .products-items {
   padding-top: 40px;
   padding-left: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-}
+} */
 .product-cart {
   position: sticky;
   top: 0;
@@ -17,4 +17,15 @@
   background: rgba(255, 153, 0, 0.3);
   border-radius: 0 0 8px 8px;
   padding: 30px 20px;
+}
+@media screen and (max-width: 967px) {
+  .shop-container {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  .product-cart {
+    background: rgba(255, 153, 0, 0.3);
+    border-radius: 0 0 8px 8px;
+    padding: 10px 20px;
+  }
 }

@@ -1,9 +1,14 @@
+.product-container {
+  display: flex;
+  justify-content: center;
+}
 .product {
   width: 300px;
-  height: 510px;
+  height: 560px;
   border: 1px solid lightgrey;
   border-radius: 8px;
   position: relative;
+  overflow-x: hidden;
 }
 .product img {
   height: 286px;
