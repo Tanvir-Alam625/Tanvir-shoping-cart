@@ -13,7 +13,7 @@ const Cart = ({ cart }) => {
   const grandTotal = total + shippingCharge + tax;
   const detailsStyle = "text-xl my-2 tracking-tight font-[Lato]";
   return (
-    <div className="cart-container sm:w-full md:w-full">
+    <div className="cart-container sm:w-full md:w-full bg-[#ff99004d]  px-8 py-20 rounded-lg">
       <h3 className=" text-2xl text-center mb-4 font-semibold font-[Lato]">
         Order Summary
       </h3>

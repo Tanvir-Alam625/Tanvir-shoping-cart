@@ -6,8 +6,7 @@
 .product-cart {
   position: sticky;
   top: 0;
-  height: 80vh;
-  background: rgba(255, 153, 0, 0.3);
+  height: 90vh;
   border-radius: 8px;
   padding: 30px 20px;
 }
@@ -17,7 +16,9 @@
     align-items: center;
   }
   .product-cart {
-    background: rgba(255, 153, 0, 0.3);
+    position: sticky;
+    top: 0;
+    height: 80vh;
     padding: 10px 20px;
   }
 }
