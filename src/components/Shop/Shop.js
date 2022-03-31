@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import useCart from "../../hooks/useCart";
 import useProducts from "../../hooks/useProducts";
-import { addToDb, getLocalStorageCart } from "../../utilities/fakedb";
+import { addToDb } from "../../utilities/fakedb";
 import Cart from "./Cart/Cart";
 import Product from "./Product/Product";
+import Spinner from "../Spinner/Spinner";
 import "./Shop.css";
 
 const Shop = () => {
-  const [products, setProducts] = useProducts();
+  // all states
+  const [products, setProducts, loading, setLoading] = useProducts();
+  // const [] = useProducts();
   const [cart, setCart] = useCart(products);
 
   // add to cart btn handler function
-  const handleAddtoCartBtn = (selectProduct) => {
+  const handleAddToCartBtn = (selectProduct) => {
     const allReadyExists = cart.find(
       (product) => product.id === selectProduct.id
     );
@@ -29,15 +32,20 @@ const Shop = () => {
   };
   return (
     <div className="shop-container ">
-      <div className="products-items mt-12 ml-12 md:m-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
-        {products.map((product) => (
-          <Product
-            product={product}
-            handleBtn={handleAddtoCartBtn}
-            key={product.id}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="products-items mt-12 ml-12 md:m-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
+          {products.map((product) => (
+            <Product
+              product={product}
+              handleBtn={handleAddToCartBtn}
+              key={product.id}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="product-cart">
         <Cart cart={cart} />
       </div>
