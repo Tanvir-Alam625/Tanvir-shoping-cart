@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Link = ({ data }) => {
+const Links = ({ data }) => {
   const { link, name } = data;
   const linkStyle =
     "text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]";
   return (
-    <a className={linkStyle} href={link}>
+    <Link to={link} className={linkStyle}>
       {name}
-    </a>
+    </Link>
   );
 };
 
-export default Link;
+export default Links;

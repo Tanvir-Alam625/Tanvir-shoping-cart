@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
+import useProducts from "../../hooks/useProducts";
 import { addToDb, getLocalStorageCart } from "../../utilities/fakedb";
 import Cart from "./Cart/Cart";
 import Product from "./Product/Product";
 import "./Shop.css";
 
 const Shop = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useProducts();
   const [cart, setCart] = useState([]);
-  // get products data
-  useEffect(() => {
-    fetch("products.json")
-      .then((response) => response.json())
-      .then((data) => setProducts(data));
-  }, []);
+
   // saved product cart
   useEffect(() => {
     const storedCart = getLocalStorageCart();
@@ -55,7 +51,7 @@ const Shop = () => {
           />
         ))}
       </div>
-      <div className="product-cart sticky md:m-2 m-0">
+      <div className="product-cart">
         <Cart cart={cart} />
       </div>
     </div>

@@ -2,7 +2,7 @@ import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Logo from "../../images/Logo.svg";
-import Link from "../Link/Link";
+import Links from "../Links/Links";
 const Header = () => {
   const [links, setLinks] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -22,7 +22,7 @@ const Header = () => {
           `}
         >
           {links.map((link) => (
-            <Link data={link} key={link.id} />
+            <Links data={link} key={link.id} />
           ))}
         </div>
 
