@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { getLocalStorageCart } from "../utilities/fakedb";
+import { deleteShoppingCart, getLocalStorageCart } from "../utilities/fakedb";
 
 const useCart = (products) => {
   const [cart, setCart] = useState([]);
   // saved product cart
+  const clearCart = () => {
+    deleteShoppingCart();
+    setCart([]);
+  };
   useEffect(() => {
     const storedCart = getLocalStorageCart();
     const savedCart = [];
@@ -17,7 +21,7 @@ const useCart = (products) => {
     }
     setCart(savedCart);
   }, [products]);
-  return [cart, setCart];
+  return [cart, setCart, clearCart];
 };
 
 export default useCart;

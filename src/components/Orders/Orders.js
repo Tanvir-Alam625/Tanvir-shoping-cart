@@ -1,34 +1,59 @@
+import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import useProducts from "../../hooks/useProducts";
-import { removeFromDb } from "../../utilities/fakedb";
+import { deleteShoppingCart, removeFromDb } from "../../utilities/fakedb";
 import OrderReview from "../OrderReview.js/OrderReview";
+import Spinner from "../Spinner/Spinner";
 import Cart from "../Shop/Cart/Cart";
+import useClearItem from "../../hooks/useClearItem";
 
 const Orders = () => {
-  const [products, setProducts] = useProducts();
-  const [cart, setCart] = useCart(products);
+  // get all hooks
+  const [products, setProducts, loading, setLoading] = useProducts();
+  const [cart, setCart, clearCart] = useCart(products);
+  // navigate
+  const navigate = useNavigate();
+  // remove items
   const removeItems = (product) => {
     const rest = cart.filter((pd) => pd.id !== product.id);
-    console.log(rest);
     removeFromDb(product.id);
     setCart(rest);
   };
+
   return (
-    <div className="flex flex-col  md:flex-row justify-center  md:justify-between   mx-4 md:mx-12 lg:mx-28 mt-8">
-      <div className="order-items w-full md:w-3/5 mb-8">
-        {cart.map((product) => (
-          <OrderReview
-            key={product.id}
-            product={product}
-            removeItems={removeItems}
-          />
-        ))}
-      </div>
-      <div className="order-summary w-full md:w-auto">
-        <Cart cart={cart}></Cart>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-col  md:flex-row justify-center  md:justify-between   mx-4 md:mx-12 lg:mx-28 mt-8">
+          <div className="order-items w-full md:w-3/5 mb-8">
+            {cart.map((product) => (
+              <OrderReview
+                key={product.id}
+                product={product}
+                removeItems={removeItems}
+              />
+            ))}
+          </div>
+          <div className="order-summary w-full md:w-auto">
+            <Cart cart={cart} clearCart={clearCart}>
+              {cart.length > 0 && (
+                <button
+                  onClick={() => navigate("/inventory")}
+                  className="bg-orange-500 p-2 flex w-full my-2 justify-between items-center rounded text-white"
+                >
+                  Review Order
+                  <FontAwesomeIcon icon={faLongArrowAltRight} />
+                </button>
+              )}
+            </Cart>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

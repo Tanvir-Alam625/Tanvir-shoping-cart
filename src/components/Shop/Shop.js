@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useCart from "../../hooks/useCart";
 import useProducts from "../../hooks/useProducts";
 import { addToDb } from "../../utilities/fakedb";
@@ -6,12 +6,17 @@ import Cart from "./Cart/Cart";
 import Product from "./Product/Product";
 import Spinner from "../Spinner/Spinner";
 import "./Shop.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   // all states
   const [products, setProducts, loading, setLoading] = useProducts();
   // const [] = useProducts();
-  const [cart, setCart] = useCart(products);
+  const [cart, setCart, clearCart] = useCart(products);
+  // use navigate path
+  const navigate = useNavigate();
 
   // add to cart btn handler function
   const handleAddToCartBtn = (selectProduct) => {
@@ -47,7 +52,17 @@ const Shop = () => {
       )}
 
       <div className="product-cart">
-        <Cart cart={cart} />
+        <Cart cart={cart} clearCart={clearCart}>
+          {cart.length > 0 && (
+            <button
+              onClick={() => navigate("/order")}
+              className="bg-orange-500 p-2 flex w-full my-2 justify-between items-center rounded text-white"
+            >
+              Review Order
+              <FontAwesomeIcon icon={faLongArrowAltRight} />
+            </button>
+          )}
+        </Cart>
       </div>
     </div>
   );
