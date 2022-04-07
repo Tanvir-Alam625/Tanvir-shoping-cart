@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useCart from "../../hooks/useCart";
 import useProducts from "../../hooks/useProducts";
 import { addToDb } from "../../utilities/fakedb";
@@ -12,12 +12,25 @@ import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   // all states
-  const [products, setProducts, loading, setLoading] = useProducts();
   const [search, setSearch] = useState([]);
+  const [searchText, setSearchText] = useState("");
   // const [] = useProducts();
+  const [products, setProducts, loading, setLoading] = useProducts();
   const [cart, setCart, clearCart] = useCart(products);
   // use navigate path
   const navigate = useNavigate();
+  // use Effect data search
+  useEffect(() => {
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("working");
+        const match = data.filter((d) =>
+          d.name.toLowerCase().includes(searchText)
+        );
+        setSearch(match);
+      });
+  }, [searchText]);
 
   // add to cart btn handler function
   const handleAddToCartBtn = (selectProduct) => {
@@ -38,13 +51,17 @@ const Shop = () => {
   };
   // search result get function
   const handleSearchResult = (event) => {
-    const searchValue = event.target.value;
-    const convertValue = searchValue.toLowerCase();
-    const match = products.filter((searchProduct) =>
-      searchProduct.name.toLowerCase().includes(searchValue)
-    );
-    setSearch(match);
+    setSearchText(event.target.value.toLowerCase());
   };
+
+  // search result second way
+  // const handleSearchResult = (event) => {
+  //   const searchValue = event.target.value.toLowerCase();
+  //   const match = products.filter((searchProduct) =>
+  //     searchProduct.name.toLowerCase().includes(searchValue)
+  //   );
+  //   setSearch(match);
+  // };
 
   return (
     <>
