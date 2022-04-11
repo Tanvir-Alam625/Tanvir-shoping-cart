@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
 import Logo from "../../images/Logo.svg";
 import CustomeLink from "../CustomeLink/CustomeLink";
+import { signOut } from "firebase/auth";
 const Header = () => {
   const [toggle, setToggle] = useState(false);
   const [user] = useAuthState(auth);
@@ -50,7 +51,12 @@ const Header = () => {
             Inventory
           </CustomeLink>
           {user ? (
-            <button>signOut</button>
+            <button
+              className="text-white font-semibold ml-4 "
+              onClick={() => signOut(auth)}
+            >
+              SignOut
+            </button>
           ) : (
             <CustomeLink
               to="/login"

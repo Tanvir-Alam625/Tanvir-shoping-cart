@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Signup from "../Signup/Signup";
 import GoogleIcon from "./1534129544.png";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Spinner/Spinner";
 
@@ -11,7 +14,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  // current location
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   // set email
   const handleEmailField = (event) => {
     setEmail(event.target.value);
@@ -21,9 +27,9 @@ const Login = () => {
   const handlePasswordField = (event) => {
     setPassword(event.target.value);
   };
-  // user
+  // using user exectlly location
   if (user) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
   // signIn function
   const signInUser = (event) => {
