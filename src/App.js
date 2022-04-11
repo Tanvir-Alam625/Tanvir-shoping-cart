@@ -7,6 +7,7 @@ import Overview from "./components/Overview/Overview";
 import Inventory from "./components/Inventory/Inventory";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
 function App() {
   return (
     <div className="overflow-x-hidden">
@@ -16,7 +17,14 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/order" element={<Orders />} />
         <Route path="/overview" element={<Overview />} />
-        <Route path="/inventory" element={<Inventory />} />
+        <Route
+          path="/inventory"
+          element={
+            <RequireAuth>
+              <Inventory />
+            </RequireAuth>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

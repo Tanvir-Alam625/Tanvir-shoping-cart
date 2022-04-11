@@ -74,6 +74,7 @@ const Login = () => {
                     className="w-full border-2 px-2 border-[#95A0A7]  rounded-md h-[55px] text-xl"
                   />
                 </div>
+                <p className="text-red-500">{error?.message}</p>
                 <input
                   autoCapitalize="off"
                   type="submit"

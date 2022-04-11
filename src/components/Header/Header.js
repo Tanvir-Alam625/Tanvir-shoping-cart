@@ -1,20 +1,14 @@
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
 import Logo from "../../images/Logo.svg";
-import Links from "../Links/Links";
+import CustomeLink from "../CustomeLink/CustomeLink";
 const Header = () => {
-  const [links, setLinks] = useState([]);
   const [toggle, setToggle] = useState(false);
-  useState(() => {
-    fetch("link.json")
-      .then((response) => response.json())
-      .then((data) => setLinks(data));
-  }, []);
-  const toggleFunc = () => {
-    setToggle(!toggle);
-  };
+  const [user] = useAuthState(auth);
   return (
     <div>
       <nav className=" h-[80px]  flex px-0 justify-between py-0 lg:px-[140px] items-center bg-[#1c2b35] z-20">
@@ -27,9 +21,45 @@ const Header = () => {
           ${toggle ? "right-[0px] " : "right-[-100%]"}
           `}
         >
-          {links.map((link) => (
-            <Links data={link} key={link.id} togglefun={toggleFunc} />
-          ))}
+          <CustomeLink
+            to="/shop"
+            onClick={() => setToggle(!toggle)}
+            className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+          >
+            Shop
+          </CustomeLink>
+          <CustomeLink
+            to="/order"
+            onClick={() => setToggle(!toggle)}
+            className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+          >
+            Order
+          </CustomeLink>
+          <CustomeLink
+            to="/overview"
+            onClick={() => setToggle(!toggle)}
+            className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+          >
+            Overview
+          </CustomeLink>
+          <CustomeLink
+            to="/inventory"
+            onClick={() => setToggle(!toggle)}
+            className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+          >
+            Inventory
+          </CustomeLink>
+          {user ? (
+            <button>signOut</button>
+          ) : (
+            <CustomeLink
+              to="/login"
+              onClick={() => setToggle(!toggle)}
+              className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+            >
+              Login
+            </CustomeLink>
+          )}
         </div>
 
         <FontAwesomeIcon
