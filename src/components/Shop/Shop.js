@@ -54,15 +54,6 @@ const Shop = () => {
     setSearchText(event.target.value.toLowerCase());
   };
 
-  // search result second way
-  // const handleSearchResult = (event) => {
-  //   const searchValue = event.target.value.toLowerCase();
-  //   const match = products.filter((searchProduct) =>
-  //     searchProduct.name.toLowerCase().includes(searchValue)
-  //   );
-  //   setSearch(match);
-  // };
-
   return (
     <>
       <div className="search-field my-8 text-center ">
