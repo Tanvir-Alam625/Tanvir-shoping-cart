@@ -42,10 +42,10 @@ const Orders = () => {
             <Cart cart={cart} clearCart={clearCart}>
               {cart.length > 0 && (
                 <button
-                  onClick={() => navigate("/inventory")}
+                  onClick={() => navigate("/shipment")}
                   className="bg-orange-500 p-2 flex w-full my-2 justify-between items-center rounded text-white"
                 >
-                  Review Order
+                  Proceed
                   <FontAwesomeIcon icon={faLongArrowAltRight} />
                 </button>
               )}

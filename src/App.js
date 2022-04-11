@@ -8,6 +8,7 @@ import Inventory from "./components/Inventory/Inventory";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
+import Shipment from "./components/Shipment/Shipment";
 function App() {
   return (
     <div className="overflow-x-hidden">
@@ -22,6 +23,14 @@ function App() {
           element={
             <RequireAuth>
               <Inventory />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/shipment"
+          element={
+            <RequireAuth>
+              <Shipment />
             </RequireAuth>
           }
         />

@@ -24,7 +24,6 @@ const Shop = () => {
     fetch("products.json")
       .then((res) => res.json())
       .then((data) => {
-        console.log("working");
         const match = data.filter((d) =>
           d.name.toLowerCase().includes(searchText)
         );
