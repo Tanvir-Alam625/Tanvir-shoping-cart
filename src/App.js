@@ -5,6 +5,8 @@ import Shop from "./components/Shop/Shop";
 import Orders from "./components/Orders/Orders";
 import Overview from "./components/Overview/Overview";
 import Inventory from "./components/Inventory/Inventory";
+import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
 function App() {
   return (
     <div className="overflow-x-hidden">
@@ -15,6 +17,8 @@ function App() {
         <Route path="/order" element={<Orders />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/inventory" element={<Inventory />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

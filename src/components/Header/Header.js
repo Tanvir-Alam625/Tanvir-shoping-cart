@@ -12,20 +12,23 @@ const Header = () => {
       .then((response) => response.json())
       .then((data) => setLinks(data));
   }, []);
+  const toggleFunc = () => {
+    setToggle(!toggle);
+  };
   return (
-    <div className="relative">
+    <div>
       <nav className=" h-[80px]  flex px-0 justify-between py-0 lg:px-[140px] items-center bg-[#1c2b35] z-20">
         <Link to="/">
           <img src={Logo} alt="nav-logo" className=" pl-6 lg:p-0" />
         </Link>
         <div
           className={`
-          flex flex-col lg:flex-row   mt-[300px] lg:mt-0 absolute lg:static  pt-12 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-10 duration-300 ease-in
+          flex flex-col lg:flex-row   mt-[300px] lg:mt-0 absolute lg:static  pt-12 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-30 duration-300 ease-in
           ${toggle ? "right-[0px] " : "right-[-100%]"}
           `}
         >
           {links.map((link) => (
-            <Links data={link} key={link.id} />
+            <Links data={link} key={link.id} togglefun={toggleFunc} />
           ))}
         </div>
 
@@ -34,7 +37,6 @@ const Header = () => {
           onClick={() => setToggle(!toggle)}
           className=" text-white  visible lg:hidden  my-6 w-[50px] h-[50px] mr-6 z-40 cursor-pointer duration-300 ease-in  font-light "
         />
-        {/* <FontAwesomeIcon icon={faXmark}/> */}
       </nav>
     </div>
   );
