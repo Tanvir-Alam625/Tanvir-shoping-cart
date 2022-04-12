@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Shipment = () => {
+  const [user] = useAuthState(auth);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [Error, setError] = useState("");
-  // set email
-  const handleEmailField = (event) => {
-    setEmail(event.target.value);
+
+  // set name
+  const handleNameField = (event) => {
+    setName(event.target.value);
   };
 
   // set password
@@ -22,10 +25,13 @@ const Shipment = () => {
   // form submit function
   const handleCreateUser = (event) => {
     event.preventDefault();
+    const email = user.email;
+    const shippingInfo = { name, email, address, phone };
+    console.log(shippingInfo);
   };
   return (
     <div className="w-full  px-2 md:px-8 flex justify-center">
-      <div className="login-form border-2  shadow-lg shadow-yellow-600 border-[#95A0A7] rounded-md w-full lg:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
+      <div className="login-form border-2   border-[#95A0A7] rounded-md w-full md:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
         <div className="w-full">
           <form onSubmit={handleCreateUser}>
             <h3 className="text-[35px]  tracking-tight text-[#2A414F] text-center py-[25px]">
@@ -42,7 +48,7 @@ const Shipment = () => {
                 type="text"
                 name="name"
                 id="name"
-                onBlur={handleEmailField}
+                onBlur={handleNameField}
                 className="w-full border-2 px-2 border-[#95A0A7]  rounded-md h-[55px] text-xl"
               />
             </div>
@@ -57,7 +63,8 @@ const Shipment = () => {
                 type="email"
                 name="email"
                 id="email"
-                onBlur={handleEmailField}
+                value={user?.email}
+                readOnly
                 className="w-full border-2 px-2 border-[#95A0A7]  rounded-md h-[55px] text-xl"
               />
             </div>
@@ -95,7 +102,7 @@ const Shipment = () => {
             <input
               type="submit"
               value="Shipping"
-              className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#AA7014] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
+              className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#FFE0B3] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
             />
           </form>
         </div>

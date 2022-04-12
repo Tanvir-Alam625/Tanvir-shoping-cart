@@ -4,6 +4,8 @@ import GoogleIcon from "./1534129544.png";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Spinner/Spinner";
+// import { sendEmailVerification } from "firebase/auth";
+import { useSendEmailVerification } from "react-firebase-hooks/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +16,8 @@ const Signup = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
+  //verify email
+  const [sendEmailVerification, sending] = useSendEmailVerification(auth);
 
   // set email
   const handleEmailField = (event) => {
@@ -30,10 +34,22 @@ const Signup = () => {
   };
   // navigate
   if (user) {
-    navigate("/");
+    navigate("/shipment");
   }
+  if (error) {
+    setMyError(error);
+  }
+
+  // const verifiEmail = () => {
+  //   // sendEmailVerification(auth.currentUser).then(() => {
+  //   //   console.log("email send");
+  //   //   console.log(email);
+  //   // });
+  //   // console.log(email);
+
+  // };
   // form submit function
-  const handleCreateUser = (event) => {
+  const handleCreateUser = async (event) => {
     event.preventDefault();
     if (password !== cPassword) {
       setMyError("your Password two did not match!");
@@ -44,6 +60,8 @@ const Signup = () => {
       return;
     }
     createUserWithEmailAndPassword(email, password);
+    await sendEmailVerification(email);
+    // await verifiEmail();
   };
   //JSX
   return (
@@ -52,7 +70,7 @@ const Signup = () => {
         <Spinner />
       ) : (
         <div className="w-full  px-2 md:px-8 flex justify-center">
-          <div className="login-form border-2  shadow-lg shadow-yellow-600 border-[#95A0A7] rounded-md w-full lg:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
+          <div className="login-form border-2  border-[#95A0A7] rounded-md w-full md:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
             <div className="w-full">
               <form onSubmit={handleCreateUser}>
                 <h3 className="text-[35px]  tracking-tight text-[#2A414F] text-center py-[25px]">
@@ -107,7 +125,7 @@ const Signup = () => {
                 <input
                   type="submit"
                   value="Signup"
-                  className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#AA7014] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
+                  className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#FFE0B3] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
                 />
               </form>
               <p className="text-sm  text-gray-600 ">
@@ -115,7 +133,7 @@ const Signup = () => {
                 <span className="font-semibold">Emma John Shop</span>?{" "}
                 <Link
                   to="/login"
-                  className="text-[#AA7014] hover:text-yellow-400 font-semibold text-xl"
+                  className="text-[#FFE0B3] hover:text-yellow-400 font-semibold text-xl"
                   element={<Signup />}
                 >
                   Login

@@ -9,13 +9,15 @@
  * 8. useCreateUserWithEmailAndPassword from react-firebase-hooks/auth
  * 9. If user is created redirect to the expected page
  * 10. useSignInWithEmailAndPassword for sign in
- * 11.
+ * 11. create RequireAuth component ==> check user exists also tract use location
+ * 12. in warp protected component by using require auth component
  */
 
 /**========= hosting===========
- * 1. npm install -g firebase-tools
- * 2. firebase login
- * 3.firebase init
- * 4.firebase deploy
+ * 1. npm install -g firebase-tools (using one time computer)
+ * 2. firebase login (using one time computer)
+ * 3.firebase init (using for every project)
+ * 3. npm run build (using for every time)
+ * 4.firebase deploy (using for every time)
  *
  */

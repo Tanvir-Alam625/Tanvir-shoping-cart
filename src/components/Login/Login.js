@@ -5,19 +5,24 @@ import GoogleIcon from "./1534129544.png";
 import {
   useAuthState,
   useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Spinner from "../Spinner/Spinner";
-
+import "./Login.css";
 const Login = () => {
+  // const [user] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle] = useSignInWithGoogle(auth);
+  // const [signInWithGoogle,] = useSignInWithXXX(auth);
   // current location
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  // google sing in
   // set email
   const handleEmailField = (event) => {
     setEmail(event.target.value);
@@ -40,6 +45,7 @@ const Login = () => {
   if (error) {
     console.log(error.message);
   }
+
   //JSX
   return (
     <>
@@ -47,7 +53,7 @@ const Login = () => {
         <Spinner />
       ) : (
         <div className="w-full  px-2 md:px-8 flex justify-center">
-          <div className="login-form border-2  shadow-lg shadow-yellow-600 border-[#95A0A7] rounded-md w-full lg:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
+          <div className="login-form border-2   border-[#95A0A7] rounded-md w-full md:w-[500px] mt-[100px] mb-12 flex justify-center px-2 md:px-4 lg:px-[40px]">
             <div className="w-full">
               <form onSubmit={signInUser}>
                 <h3 className="text-[35px]  tracking-tight text-[#2A414F] text-center py-[25px]">
@@ -85,14 +91,14 @@ const Login = () => {
                   autoCapitalize="off"
                   type="submit"
                   value="Login"
-                  className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#AA7014] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
+                  className="w-full   rounded-md cursor-pointer  h-[55px] text-xl text-[#0E161A] font-semibold bg-[#FFE0B3] mb-[15px] duration-200 ease-in hover:bg-yellow-600"
                 />
               </form>
               <p className="text-sm  text-gray-600 ">
                 New to <span className="font-semibold">Emma John Shop</span>?{" "}
                 <Link
                   to="/signup"
-                  className="text-[#AA7014] hover:text-yellow-400 font-semibold text-xl"
+                  className="text-[#FFE0B3] hover:text-yellow-400 font-semibold text-xl"
                   element={<Signup />}
                 >
                   Create to Account
@@ -105,7 +111,10 @@ const Login = () => {
                 </span>
                 <div className="w-full h-[1px] rounded-full bg-[#95A0A7] mt-[5px]"></div>
               </div>
-              <button className="flex justify-center items-center  text-1xl h-[55px] border border-[#95A0A7] rounded-md w-full mt-4 mb-12">
+              <button
+                onClick={() => signInWithGoogle()}
+                className="flex justify-center items-center  text-1xl h-[55px] border border-[#95A0A7] rounded-md w-full mt-4 mb-12"
+              >
                 <img src={GoogleIcon} className="w-8 mr-4" alt="google-icon" />
                 Continue With Google
               </button>

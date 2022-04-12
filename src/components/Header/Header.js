@@ -13,12 +13,12 @@ const Header = () => {
   return (
     <div>
       <nav className=" h-[80px]  flex px-0 justify-between py-0 lg:px-[140px] items-center bg-[#1c2b35] z-20">
-        <Link to="/">
+        <Link to="/home">
           <img src={Logo} alt="nav-logo" className=" pl-6 lg:p-0" />
         </Link>
         <div
           className={`
-          flex flex-col lg:flex-row   mt-[300px] lg:mt-0 absolute lg:static  pt-12 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-30 duration-300 ease-in
+          flex flex-col lg:flex-row   mt-[250px] lg:mt-0 absolute lg:static  py-6 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-30 duration-300 ease-in
           ${toggle ? "right-[0px] " : "right-[-100%]"}
           `}
         >

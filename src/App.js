@@ -9,12 +9,14 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Shipment from "./components/Shipment/Shipment";
+import Home from "./components/Home/Home";
 function App() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden apps">
       <Header />
       <Routes>
         <Route path="/" element={<Shop />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/order" element={<Orders />} />
         <Route path="/overview" element={<Overview />} />
