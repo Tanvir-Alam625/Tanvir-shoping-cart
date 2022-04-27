@@ -14,10 +14,11 @@ const Shop = () => {
   // all states
   const [search, setSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [products, setProducts, loading, setLoading] = useProducts();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [cart, setCart, clearCart] = useCart(products);
   const [pageCount, setPageCount] = useState(0);
-  const [pagination, setPagination] = useState(0);
+  const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
   // use navigate path
   const navigate = useNavigate();
@@ -32,17 +33,29 @@ const Shop = () => {
         setPageCount(pages);
       });
   }, []);
-  // use Effect data search
+
+  /////////////////////////////////
+  //useProduct data
   useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
+    setLoading(true);
+    fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
+      .then((response) => response.json())
       .then((data) => {
-        const match = data.filter((d) =>
-          d.name.toLowerCase().includes(searchText)
-        );
-        setSearch(match);
+        setProducts(data);
+        setLoading(false);
       });
-  }, [searchText]);
+  }, [page, size]);
+  // use Effect data search
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/product")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const match = data.filter((d) =>
+  //         d.name.toLowerCase().includes(searchText)
+  //       );
+  //       setSearch(match);
+  //     });
+  // }, [searchText]);
 
   // add to cart btn handler function
   const handleAddToCartBtn = (selectProduct) => {
@@ -69,12 +82,12 @@ const Shop = () => {
   return (
     <>
       <div className="search-field my-8 text-center ">
-        <input
+        {/* <input
           type="text"
           placeholder="Search..."
           className="text-start border-2 border-blue-900 py-2 px-4 rounded w-1/3 "
           onChange={handleSearchResult}
-        />
+        /> */}
       </div>
       <div className="shop-container ">
         {loading ? (
@@ -82,7 +95,7 @@ const Shop = () => {
         ) : (
           <div className="products-items mt-12 ml-12 md:m-6 ">
             <div className=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
-              {search.map((product) => (
+              {products.map((product) => (
                 <Product
                   product={product}
                   handleBtn={handleAddToCartBtn}
@@ -90,22 +103,27 @@ const Shop = () => {
                 />
               ))}
             </div>
-            <div className="pagination flex justify-center items-center my-6">
+            <div
+              className="pagination flex
+             justify-center items-center my-6"
+            >
               {[...Array(pageCount).keys()].map((number) => (
                 <button
-                  onClick={() => setPagination(number + 1)}
-                  className={`px-3 py-1 mx-1 border rounded border-orange-500 hover:bg-orange-500 text-xl  ${
-                    pagination === number + 1
+                  onClick={() => setPage(number + 1)}
+                  className={`py-1 px-2 mr-1 border border-orange-500 rounded
+                  ${
+                    page === number + 1
                       ? "bg-orange-500 text-white"
-                      : "bg-white text-gray-600"
-                  }`}
+                      : "bg-white text-gray-500"
+                  }
+                  `}
                 >
                   {number + 1}
                 </button>
               ))}
               <select
+                className="py-2 px-2 border "
                 onChange={(e) => setSize(e.target.value)}
-                className="border ml-2 p-1"
               >
                 <option value="5">5</option>
                 <option selected value="10">

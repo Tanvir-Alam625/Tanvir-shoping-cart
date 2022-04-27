@@ -4,7 +4,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./Product.css";
 
 const Product = ({ handleBtn, product }) => {
-  const { name, price, ratings, img, seller, id } = product;
+  const { name, price, ratings, img, seller, _id } = product;
   return (
     <div className="product-container mb-6">
       <div className="product m-0 p-0 ">

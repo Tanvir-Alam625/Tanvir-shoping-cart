@@ -11,10 +11,10 @@ const useCart = (products) => {
   useEffect(() => {
     const storedCart = getLocalStorageCart();
     const savedCart = [];
-    for (const _id in storedCart) {
-      const findProduct = products.find((product) => product._id === _id);
+    for (const id in storedCart) {
+      const findProduct = products.find((product) => product._id === id);
       if (findProduct) {
-        const newQuantity = storedCart[_id];
+        const newQuantity = storedCart[id];
         findProduct.quantity = newQuantity;
         savedCart.push(findProduct);
       }
