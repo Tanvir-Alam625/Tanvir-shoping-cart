@@ -18,14 +18,14 @@ const Header = () => {
         </Link>
         <div
           className={`
-          flex flex-col lg:flex-row   mt-[250px] lg:mt-0 absolute lg:static  py-6 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-30 duration-300 ease-in
-          ${toggle ? "right-[0px] " : "right-[-100%]"}
+          flex flex-col lg:flex-row   mt-[-250px] lg:mt-0 absolute lg:static  py-6 lg:pt-0  w-full lg:w-auto bg-[#1c2b35] z-30 duration-300 ease-in
+          ${toggle ? "top-[250px] " : " top-[-250px]"}
           `}
         >
           <CustomeLink
             to="/shop"
             onClick={() => setToggle(!toggle)}
-            className="text-white decoration-clone ml-[36px] mb-4 lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
+            className="text-white decoration-clone ml-[36px] mb-[20px] lg:mb-0 border-b last:border-0 lg:border-none text-xl hover:text-[#ffa500]"
           >
             Shop
           </CustomeLink>

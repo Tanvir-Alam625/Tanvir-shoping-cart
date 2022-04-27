@@ -14,11 +14,24 @@ const Shop = () => {
   // all states
   const [search, setSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
-  // const [] = useProducts();
   const [products, setProducts, loading, setLoading] = useProducts();
   const [cart, setCart, clearCart] = useCart(products);
+  const [pageCount, setPageCount] = useState(0);
+  const [pagination, setPagination] = useState(0);
+  const [size, setSize] = useState(0);
   // use navigate path
   const navigate = useNavigate();
+  // page count
+  useEffect(() => {
+    const url = "http://localhost:5000/productCount";
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const count = data.count;
+        const pages = Math.ceil(count / 10);
+        setPageCount(pages);
+      });
+  }, []);
   // use Effect data search
   useEffect(() => {
     fetch("products.json")
@@ -34,19 +47,19 @@ const Shop = () => {
   // add to cart btn handler function
   const handleAddToCartBtn = (selectProduct) => {
     const allReadyExists = cart.find(
-      (product) => product.id === selectProduct.id
+      (product) => product._id === selectProduct._id
     );
     let newCart = [];
     if (!allReadyExists) {
       selectProduct.quantity = 1;
       newCart = [...cart, selectProduct];
     } else {
-      const rest = cart.filter((product) => product.id !== selectProduct.id);
+      const rest = cart.filter((product) => product._id !== selectProduct._id);
       allReadyExists.quantity = allReadyExists.quantity + 1;
       newCart = [...rest, allReadyExists];
     }
     setCart(newCart);
-    addToDb(selectProduct.id);
+    addToDb(selectProduct._id);
   };
   // search result get function
   const handleSearchResult = (event) => {
@@ -67,14 +80,41 @@ const Shop = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="products-items mt-12 ml-12 md:m-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
-            {search.map((product) => (
-              <Product
-                product={product}
-                handleBtn={handleAddToCartBtn}
-                key={product.id}
-              />
-            ))}
+          <div className="products-items mt-12 ml-12 md:m-6 ">
+            <div className=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
+              {search.map((product) => (
+                <Product
+                  product={product}
+                  handleBtn={handleAddToCartBtn}
+                  key={product._id}
+                />
+              ))}
+            </div>
+            <div className="pagination flex justify-center items-center my-6">
+              {[...Array(pageCount).keys()].map((number) => (
+                <button
+                  onClick={() => setPagination(number + 1)}
+                  className={`px-3 py-1 mx-1 border rounded border-orange-500 hover:bg-orange-500 text-xl  ${
+                    pagination === number + 1
+                      ? "bg-orange-500 text-white"
+                      : "bg-white text-gray-600"
+                  }`}
+                >
+                  {number + 1}
+                </button>
+              ))}
+              <select
+                onChange={(e) => setSize(e.target.value)}
+                className="border ml-2 p-1"
+              >
+                <option value="5">5</option>
+                <option selected value="10">
+                  10
+                </option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
           </div>
         )}
 

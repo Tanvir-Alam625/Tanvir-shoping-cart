@@ -18,8 +18,8 @@ const Orders = () => {
   const navigate = useNavigate();
   // remove items
   const removeItems = (product) => {
-    const rest = cart.filter((pd) => pd.id !== product.id);
-    removeFromDb(product.id);
+    const rest = cart.filter((pd) => pd._id !== product._id);
+    removeFromDb(product._id);
     setCart(rest);
   };
 
@@ -32,7 +32,7 @@ const Orders = () => {
           <div className="order-items w-full md:w-3/5 mb-8">
             {cart.map((product) => (
               <OrderReview
-                key={product.id}
+                key={product._id}
                 product={product}
                 removeItems={removeItems}
               />
