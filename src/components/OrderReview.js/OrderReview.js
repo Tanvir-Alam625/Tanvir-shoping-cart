@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 const OrderReview = ({ product, removeItems }) => {
-  const { name, price, shipping, quantity, img } = product;
+  const { name, price, shipping, quantity, img, _id } = product;
   return (
     <div className="flex   p-2 shadow border rounded-lg my-4">
       <div className="order-img">
@@ -25,7 +25,7 @@ const OrderReview = ({ product, removeItems }) => {
         </div>
         <div className="delete-btn  ">
           <button
-            onClick={() => removeItems(product)}
+            onClick={() => removeItems(_id)}
             className="text-right bg-red-100 p-2 rounded-full "
           >
             <FontAwesomeIcon

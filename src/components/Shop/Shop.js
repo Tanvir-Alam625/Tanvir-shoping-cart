@@ -16,10 +16,9 @@ const Shop = () => {
   const [searchText, setSearchText] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [cart, setCart, clearCart] = useCart(products);
+  const [cart, setCart, clearCart] = useCart();
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(0);
   // use navigate path
   const navigate = useNavigate();
   // page count
@@ -38,13 +37,13 @@ const Shop = () => {
   //useProduct data
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
+    fetch(`http://localhost:5000/product?page=${page}&size=${10}`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
         setLoading(false);
       });
-  }, [page, size]);
+  }, [page]);
   // use Effect data search
   // useEffect(() => {
   //   fetch("http://localhost:5000/product")
@@ -121,17 +120,6 @@ const Shop = () => {
                   {number + 1}
                 </button>
               ))}
-              <select
-                className="py-2 px-2 border "
-                onChange={(e) => setSize(e.target.value)}
-              >
-                <option value="5">5</option>
-                <option selected value="10">
-                  10
-                </option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-              </select>
             </div>
           </div>
         )}

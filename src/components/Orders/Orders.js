@@ -8,18 +8,17 @@ import { deleteShoppingCart, removeFromDb } from "../../utilities/fakedb";
 import OrderReview from "../OrderReview.js/OrderReview";
 import Spinner from "../Spinner/Spinner";
 import Cart from "../Shop/Cart/Cart";
-import useClearItem from "../../hooks/useClearItem";
 
 const Orders = () => {
   // get all hooks
   const [products, setProducts, loading, setLoading] = useProducts();
-  const [cart, setCart, clearCart] = useCart(products);
+  const [cart, setCart, clearCart] = useCart();
   // navigate
   const navigate = useNavigate();
   // remove items
-  const removeItems = (product) => {
-    const rest = cart.filter((pd) => pd._id !== product._id);
-    removeFromDb(product._id);
+  const removeItems = (id) => {
+    const rest = cart.filter((pd) => pd._id !== id);
+    removeFromDb(id);
     setCart(rest);
   };
 
